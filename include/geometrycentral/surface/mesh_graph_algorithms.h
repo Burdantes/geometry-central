@@ -24,8 +24,9 @@ EdgeData<char> minimalSpanningTree(IntrinsicGeometryInterface& geom);
 // Note: Uses an MST+pruning approach to find short trees in O(N logN), but not guaranteed to be minimal; that's an
 // NP-hard Steiner tree problem
 EdgeData<char> spanningTreeBetweenVertices(IntrinsicGeometryInterface& geom, const std::vector<Vertex>& requiredVertices);
-    
 
+
+std::vector<Halfedge> halfedgesFromVertexRoute(SurfaceMesh& mesh, const std::vector<Vertex>& verts);
 
 } // namespace surface
 } // namespace geometrycentral

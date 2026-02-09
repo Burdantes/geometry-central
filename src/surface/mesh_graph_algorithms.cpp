@@ -318,3 +318,34 @@ of
 
 } // namespace surface
 } // namespace geometrycentral
+
+std::vector<Halfedge> halfedgesFromVertexRoute(SurfaceMesh& mesh, const std::vector<Vertex>& verts) {
+  if (verts.size() < 2) return {};
+
+  std::vector<Halfedge> path;
+  path.reserve(verts.size() - 1);
+
+  for (size_t i = 0; i + 1 < verts.size(); i++) {
+    Vertex a = verts[i];
+    Vertex b = verts[i + 1];
+
+    Halfedge chosenHe;
+    bool found = false;
+
+    for (Halfedge he : a.outgoingHalfedges()) {
+      if (he.twin().vertex() == b) {
+        chosenHe = he;
+        found = true;
+        break;
+      }
+    }
+
+    if (!found) {
+      throw std::runtime_error("Provided vertex route is not edge-adjacent at step " + std::to_string(i));
+    }
+
+    path.push_back(chosenHe);
+  }
+
+  return path;
+}
